@@ -14,7 +14,8 @@ const app = express();
 app.use(cors());
 
 // middleware
-app.use(express.static(path.join(__dirname, "client")));
+app.use(express.static("public"));
+app.use(express.json());
 
 // connect to database
 const db = mysql.createConnection({
@@ -31,7 +32,12 @@ try {
 }
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/index.html"));
+  res.sendFile(path.join(__dirname + "/index.html"));
+});
+
+// css send
+app.get("/style.css", (req, res) => {
+  res.sendFile(path.join(__dirname + "/public/style.css"));
 });
 
 app.listen(port, () => {
